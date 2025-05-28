@@ -1,0 +1,14 @@
+<h2>Доступные фильмы</h2>
+
+<ul>
+  <% media.forEach(m => { %>
+    <li>
+      <strong><%= m.title %></strong> (<%= m.type %>, <%= m.year %>) — <%= m.price %> руб. <strong><%= m.available_copies %> доступно.</strong>
+      <% if (user && user.role === 'client') { %>
+        <form method="POST" action="/rentals/<%= m.id %>" style="display:inline">
+          <button type="submit">Арендовать</button>
+        </form>
+      <% } %>
+    </li>
+  <% }) %>
+</ul>
