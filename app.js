@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const expressLayouts = require('express-ejs-layouts');
 
+const indexRoutes = require('./routes/index');
 const mediaRoutes = require('./routes/media');
 const authRoutes = require('./routes/auth');
 
@@ -20,13 +22,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(expressLayouts);
+app.set('layout', 'layout');
 app.set('view engine', 'ejs');
 
 app.use('/media', mediaRoutes);
 app.use(authRoutes);
-
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use('/', indexRoutes);
 
 app.listen(3000, () => console.log("Server started on http://localhost:3000"));
