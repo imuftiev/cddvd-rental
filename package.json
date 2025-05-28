@@ -1,0 +1,29 @@
+{
+  "name": "video-rental",
+  "version": "1.0.0",
+  "description": "Web-app DVD/CD rental.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/imuftiev/cddvd-rental.git"
+  },
+  "author": "IMN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imuftiev/cddvd-rental/issues"
+  },
+  "homepage": "https://github.com/imuftiev/cddvd-rental#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "pg": "^8.16.0"
+  }
+}
