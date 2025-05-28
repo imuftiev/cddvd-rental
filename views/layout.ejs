@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>ВидеоПрокат</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 ВидеоПрокат</h1>
+    <nav>
+      <a href="/">Главная</a>
+      <% if (user) { %>
+        <% if (user.role === 'admin') { %>
+          <a href="/media">Управление медиа</a>
+        <% } %>
+        <a href="/logout">Выйти</a>
+      <% } else { %>
+        <a href="/login">Вход</a>
+        <a href="/register">Регистрация</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <footer>
+    &copy; <%= new Date().getFullYear() %> ВидеоПрокат
+  </footer>
+</body>
+</html>
