@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Список фильмов</title>
 </head>
 <body>
     <h1>Список медиа</h1>
@@ -13,12 +14,12 @@
             <li>
                 <%= m.title %> (<%= m.type %>, <%= m.year %>) — <%= m.price %> руб.
                 <a href="/media/<%= m.id %>/edit">✏️</a>
-                <form method="POST" action="/media/<%= m.id %>/delete" style="display:inline">
+                <form method="POST" action="/media/<%= m.id %>/delete" style="display:inline-block">
                     <button type="submit">❌</button>
                 </form>
             </li>
         <% }) %>
     </ul>
-</body>
+</body> 
 </html>
 
