@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db');
 const { isAdmin } = require('../middleware/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', isAdmin, async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM media ORDER BY id ASC');
     res.render('media_list', { media: result.rows });
