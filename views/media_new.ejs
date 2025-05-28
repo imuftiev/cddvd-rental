@@ -1,0 +1,10 @@
+<h1>Добавить Медиа</h1>
+<form method="POST" action="/media/new">
+  <input type="text" name="title" placeholder="Название" required>
+  <input type="text" name="type" placeholder="Тип (vhs/cd/dvd)" required>
+  <input type="number" name="year" placeholder="Год">
+  <input type="number" step="0.01" name="price" placeholder="Цена" required>
+  <input type="number" name="total_copies" placeholder="Копий" required>
+  <input type="number" name="available_copies" placeholder="Доступных копий" required>
+  <button type="submit">Добавить</button>
+</form>

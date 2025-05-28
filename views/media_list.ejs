@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Список медиа</h1>
+    <a href="/media/new">Добавить медиа</a>
+    <ul>
+        <% media.forEach(m => { %>
+            <li>
+                <%= m.title %> (<%= m.type %>, <%= m.year %>) — <%= m.price %> руб.
+                <a href="/media/<%= m.id %>/edit">✏️</a>
+                <form method="POST" action="/media/<%= m.id %>/delete" style="display:inline">
+                    <button type="submit">❌</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
+

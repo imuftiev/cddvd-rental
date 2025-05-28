@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Редактировать медиа</h1>
+    <form method="POST" action="/media/<%= media.id %>/edit">
+        <input type="text" name="title" value="<%= media.title %>" required><br>
+        <input type="text" name="type" value="<%= media.type %>" required><br>
+        <input type="number" name="year" value="<%= media.year %>"><br>
+        <input type="number" name="price" value="<%= media.price %>" required><br>
+        <input type="number" name="total_copies" value="<%= media.total_copies %>" required><br>
+        <input type="number" name="available_copies" value="<%= media.available_copies %>" required><br>
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>
+
+
