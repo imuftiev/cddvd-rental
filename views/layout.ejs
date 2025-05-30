@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <title>ВидеоПрокат</title>
   <link rel="stylesheet" href="/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <header>
     <h1>🎬 ВидеоПрокат</h1>
     <nav>
       <a href="/">Главная</a>
+      <a href="/rentals">Аренда</a>
       <% if (user) { %>
-        <% if (user.role === 'admin') { %>
+        <% if (user.role === 'admin'|| user.role === 'distr') { %>
           <a href="/media">Управление медиа</a>
+        <% } %>
+        <% if (user.role === 'admin') { %>
+          <a href="/clients">Управление Пользователями</a>
         <% } %>
         <a href="/logout">Выйти</a>
       <% } else { %>
@@ -31,3 +36,25 @@
   </footer>
 </body>
 </html>
+<script>
+$(document).ready(function () {
+  $('.rent-btn').click(function () {
+    const $li = $(this).closest('li');
+    const mediaId = $li.data('id');
+    const type = $(this).data('type');
+
+    $.ajax({
+      url: `/rentals/${mediaId}?type=${type}`,
+      method: 'POST',
+      success: function (response) {
+        alert(response.message);
+        location.reload(); // обновим список после действия
+      },
+      error: function (xhr) {
+        alert(xhr.responseText || 'Произошла ошибка');
+      }
+    });
+  });
+});
+</script>
+
