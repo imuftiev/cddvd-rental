@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
-const { isAdmin } = require('../middleware/auth');
+const { isAdminAndDistr} = require('../middleware/auth');
 
-router.get('/', isAdmin, async (req, res) => {
+router.get('/', isAdminAndDistr, async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM media ORDER BY id ASC');
     res.render('media_list', { media: result.rows });
@@ -12,11 +12,11 @@ router.get('/', isAdmin, async (req, res) => {
   }
 });
 
-router.get('/new', isAdmin, (req, res) => {
+router.get('/new', isAdminAndDistr, (req, res) => {
   res.render('media_new');
 });
 
-router.post('/new', isAdmin, async (req, res) => {
+router.post('/new', isAdminAndDistr, async (req, res) => {
   const { title, type, year, price, total_copies } = req.body;
   try {
     await pool.query(
@@ -29,7 +29,7 @@ router.post('/new', isAdmin, async (req, res) => {
   }
 });
 
-router.get('/:id/edit', isAdmin, async (req, res) => {
+router.get('/:id/edit', isAdminAndDistr, async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query('SELECT * FROM media WHERE id = $1', [id]);
@@ -39,7 +39,7 @@ router.get('/:id/edit', isAdmin, async (req, res) => {
   }
 });
 
-router.post('/:id/edit', isAdmin, async (req, res) => {
+router.post('/:id/edit', isAdminAndDistr, async (req, res) => {
   const { id } = req.params;
   const { title, type, year, price, total_copies, available_copies } = req.body;
   try {
@@ -53,7 +53,7 @@ router.post('/:id/edit', isAdmin, async (req, res) => {
   }
 });
 
-router.post('/:id/delete', isAdmin, async (req, res) => {
+router.post('/:id/delete', isAdminAndDistr, async (req, res) => {
   const { id } = req.params;
   try {
     await pool.query('DELETE FROM media WHERE id = $1', [id]);
