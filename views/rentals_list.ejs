@@ -1,0 +1,33 @@
+<h2>Мои аренды</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Название</th>
+      <th>Тип</th>
+      <th>Дата аренды</th>
+      <th>Дата возврата</th>
+      <th>Статус</th>
+      <th>Действие</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% rentals.forEach(r => { %>
+      <tr>
+        <td><%= r.title %></td>
+        <td><%= r.type %></td>
+        <td><%= r.rent_date.toLocaleDateString() %></td>
+        <td><%= r.return_date ? r.return_date.toLocaleDateString() : '-' %></td>
+        <td><%= r.status %></td>
+        <td>
+          <% if (r.status === 'rented') { %>
+            <form method="POST" action="/rentals/<%= r.id %>/return">
+              <button type="submit">Вернуть</button>
+            </form>
+          <% } else { %>
+            <em>Завершено</em>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
