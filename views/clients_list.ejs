@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление пользователями</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Пользователи</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Email</th>
+        <th>Роль</th>
+        <th>Изменить роль</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% client.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+
+          <td>
+            <form method="POST" action="/admin/users/<%= user.id %>/role">
+              <select name="role">
+                <option value="client" <%= user.role === 'client' ? 'selected' : '' %>>Клиент</option>
+                <option value="distr" <%= user.role === 'distr' ? 'selected' : '' %>>Дистрибьютор</option>
+                <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Админ</option>
+              </select>
+              <button type="submit">💾</button>
+            </form>
+          </td>
+
+          <td>
+            <a href="/clients/<%= user.id %>/edit">✏️</a>
+            <form method="POST" action="/clients/<%= user.id %>/delete" style="display:inline">
+              <button type="submit">❌</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
