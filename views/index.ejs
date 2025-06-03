@@ -1,15 +1,76 @@
+<h2>Фильтр фильмов</h2>
+
+<form id="filterForm" method="GET" action="/">
+    <input type="text" name="title" placeholder="Название" value="<%= query.title || '' %>">
+
+    <select name="type">
+        <option value="">Любой тип</option>
+        <% types.forEach(t => { %>
+            <option value="<%= t %>" <%= query.type === t ? 'selected' : '' %>><%= t.toUpperCase() %></option>
+        <% }) %>
+    </select>
+
+    <select name="year">
+        <option value="">Любой год</option>
+        <% years.forEach(y => { %>
+            <option value="<%= y %>" <%= query.year == y ? 'selected' : '' %>><%= y %></option>
+        <% }) %>
+    </select>
+
+    <button type="submit">Поиск</button>
+</form>
+
 <h2>Доступные фильмы</h2>
 
-<ul id="media-list">
-  <% media.forEach(m => { %>
-    <li data-id="<%= m.id %>">
-      <strong><%= m.title %></strong> (<%= m.type %>, <%= m.year %>) —
-      <%= m.price %> руб. <strong><%= m.available_copies %> доступно</strong>
+<table border="1" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Обложка</th>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Год</th>
+        <th>Цена</th>
+        <th>Доступно</th>
+        <% if (user && user.role === 'client') { %>
+            <th>Аренда</th>
+            <th>Бронь</th>
+        <% } %>
+    </tr>
+    </thead>
+    <tbody>
+    <% media.forEach(m => { %>
+        <tr>
+            <td>
+                <% if (m.image_url) { %>
+                    <img src="/images/media/<%= m.image_url %>" alt="Обложка" style="height:100px;">
+                <% } else { %>
+                    <em>Нет изображения</em>
+                <% } %>
+            </td>
+            <td><%= m.title %></td>
+            <td><%= m.type %></td>
+            <td><%= m.year %></td>
+            <td><%= m.price %> руб.</td>
+            <td><strong><%= m.available_copies %></strong></td>
 
-      <% if (user && user.role === 'client') { %>
-        <button class="rent-btn" data-type="rent">Арендовать</button>
-        <button class="rent-btn" data-type="reserve">Бронь</button>
-      <% } %>
-    </li>
-  <% }) %>
-</ul>
+            <% if (user && user.role === 'client') { %>
+                <td>
+                    <form method="POST" action="/rentals/<%= m.id %>">
+                        <select name="method" required>
+                            <option value="cash">Наличные</option>
+                            <option value="card">Карта</option>
+                            <option value="online">СБП</option>
+                        </select>
+                        <button type="submit">Арендовать</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="/rentals/<%= m.id %>?type=reserve">
+                        <button type="submit">Бронь</button>
+                    </form>
+                </td>
+            <% } %>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
