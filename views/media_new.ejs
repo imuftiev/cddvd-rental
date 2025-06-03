@@ -1,11 +1,14 @@
-<h1>Добавить Медиа</h1>
-<form method="POST" action="/media/new">
-  <input type="text" name="title" placeholder="Название" required>
-  <input type="text" name="type" placeholder="Тип (vhs/cd/dvd)" required>
-  <input type="number" name="year" placeholder="Год">
-  <input type="number" step="0.01" name="price" placeholder="Цена" required>
-  <input type="number" name="total_copies" placeholder="Копий" required>
-  <input type="number" name="available_copies" placeholder="Доступных копий" required>
-  <button type="submit">Добавить</button>
+<h2>Добавить фильм</h2>
+<form action="/media/new" method="POST">
+  <input type="text" name="title" placeholder="Название" required><br>
+  <select name="type" required>
+    <option value="vhs">VHS</option>
+    <option value="dvd">DVD</option>
+    <option value="cd">CD</option>
+  </select><br>
+  <input type="number" name="year" placeholder="Год" required><br>
+  <input type="number" name="price" placeholder="Цена" required><br>
+  <input type="number" name="total_copies" placeholder="Всего копий" required><br>
+  <input type="text" name="image_url" placeholder="URL изображения (необязательно)"><br>
+  <button type="submit">Сохранить</button>
 </form>
-

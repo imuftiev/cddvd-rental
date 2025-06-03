@@ -8,6 +8,27 @@
 </head>
 <body>
     <h1>Список медиа</h1>
+    <h2>Фильтр</h2>
+    <form method="GET" action="/media">
+        <input type="text" name="title" placeholder="Название" value="<%= query.title || '' %>">
+
+        <select name="type">
+            <option value="">Любой тип</option>
+            <% types.forEach(t => { %>
+                <option value="<%= t %>" <%= query.type === t ? 'selected' : '' %>><%= t.toUpperCase() %></option>
+            <% }) %>
+        </select>
+
+        <select name="year">
+            <option value="">Любой год</option>
+            <% years.forEach(y => { %>
+                <option value="<%= y %>" <%= query.year == y ? 'selected' : '' %>><%= y %></option>
+            <% }) %>
+        </select>
+
+        <button type="submit">🔍 Поиск</button>
+    </form>
+
     <a href="/media/new">Добавить медиа</a>
     <ul>
         <% media.forEach(m => { %>
