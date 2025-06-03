@@ -1,33 +1,39 @@
-<h2>Мои аренды</h2>
+<h2>Аренды</h2>
 <table>
-  <thead>
+    <thead>
     <tr>
-      <th>Название</th>
-      <th>Тип</th>
-      <th>Дата аренды</th>
-      <th>Дата возврата</th>
-      <th>Статус</th>
-      <th>Действие</th>
+        <% if (user.role === 'admin') { %>
+            <th>Пользователь</th>
+        <% } %>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Дата аренды</th>
+        <th>Дата возврата</th>
+        <th>Статус</th>
+        <th>Действие</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <% rentals.forEach(r => { %>
-      <tr>
-        <td><%= r.title %></td>
-        <td><%= r.type %></td>
-        <td><%= r.rent_date.toLocaleDateString() %></td>
-        <td><%= r.return_date ? r.return_date.toLocaleDateString() : '-' %></td>
-        <td><%= r.status %></td>
-        <td>
-          <% if (r.status === 'rented') { %>
-            <form method="POST" action="/rentals/<%= r.id %>/return">
-              <button type="submit">Вернуть</button>
-            </form>
-          <% } else { %>
-            <em>Завершено</em>
-          <% } %>
-        </td>
-      </tr>
+        <tr>
+            <% if (user.role === 'admin') { %>
+                <td><%= r.name %></td>
+            <% } %>
+            <td><%= r.title %></td>
+            <td><%= r.type %></td>
+            <td><%= r.rent_date.toLocaleDateString() %></td>
+            <td><%= r.return_date ? r.return_date.toLocaleDateString() : '-' %></td>
+            <td><%= r.status %></td>
+            <td>
+                <% if (user.role === 'admin' && r.status === 'rented') { %>
+                    <form method="POST" action="/rentals/<%= r.id %>/return">
+                        <button type="submit">Товар возвращён</button>
+                    </form>
+                <% } else { %>
+                    <em><%= r.status === 'rented' ? 'В аренде' : 'Завершено' %></em>
+                <% } %>
+            </td>
+        </tr>
     <% }) %>
-  </tbody>
+    </tbody>
 </table>
